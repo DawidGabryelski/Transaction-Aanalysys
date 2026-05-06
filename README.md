@@ -1,112 +1,65 @@
 # Kajo Data Space - Analiza sprzedaży
 
-## 1. Cele projektu i opis
+## Cele projektu i opis
+Projekt koncentruje się na zaawansowanej analizie danych transakcyjnych w celu zrozumienia retencji klientów (Customer Retention). Wykorzystując technikę analizy kohortowej, zbadano zachowanie grup użytkowników pozyskanych w konkretnym czasie na przestrzeni kolejnych miesięcy ich cyklu życia w usłudze.
 
-Jest to projekt konkursowy który skupia się na analizie danych transakcyjnych KajoDataSpace od początku jego istnienia. Projekt zawiera dwie strony. 
-Retencja w ujęciu kohortowym oraz przegląd ogólny klientów.
+## Stack Techniczny
+* **Analiza danych:** Pandas
+* **Środowisko:** Jupyter Notebook / VS Code
+* **Wizualizacja:** Power BI (DAX)
 
-## 2. Retencja w ujęciu kohortowym
+## Struktura Danych i Przetwarzanie
+Analiza opiera się na rzeczywistym zbiorze transakcji, który został poddany procesom czyszczenia i transformacji. Główne elementy analizy obejmują:
+* Analizę kohortową (Cohort Analysis).
+* Badanie lojalności klientów (Retention Rate).
+* Analizę dynamiki przychodów YoY (Year-over-Year).
+* Segmentację klientów według wartości wpłat.
 
-Ta strona składa się z pięciu elementów i skupia się an analizie grup które dołączyły w konkretnych okresach:
+## Retencja w ujęciu kohortowym
+Ta sekcja raportu skupia się na analizie grup użytkowników, którzy dołączyli do usługi w określonych przedziałach czasowych.
 
-### a) Filtr 
+### Filtr
+Przedstawia kohorty w formacie rok-miesiąc. Jest to kluczowy element nawigacyjny pozwalający na izolację konkretnych grup i śledzenie ich aktywności w czasie.
 
-Filtr przedstawia kohorty w formie rok-miesiąc które symbolizują czas w jakim pojawiali się kolejni klienci. Korzystanie z niego jest niezbędne do prawidłowej analizy kohortowej.
+### Wykres liniowy
+Wizualizacja prezentuje liczbę nowych, unikalnych klientów. Przy braku aktywnych filtrów widoczna jest linia trendu ogólnego. Po wybraniu konkretnej kohorty, wykres wyświetla drugą linię obrazującą sytuację danej grupy na tle całej populacji. Zastosowano tutaj miarę DAX z funkcją REMOVEFILTERS, co pozwala na porównanie danych przefiltrowanych z nieprzefiltrowaną bazą.
 
-### b) Wykres liniowy
+### Wykres lejkowy
+Dodany w celu wyeliminowania trudności w interpretacji zmian przy niskich wartościach na wykresie liniowym. Pozwala na precyzyjną ocenę spadków liczebności grupy w kolejnych etapach.
 
-Gdy nie mamy zaznaczonego żadnego filtru widać tylko jedną linię która pokazuje nowych, unikalnych klientów na przestrzeni całej osi czasu. Gdy skorzystamy z filtra pojawi się drug linia
-symbolizująca jak wyglądała sytuacja danej grupy na tle wszystkich klientów. Zostalo to osiągnięte za pomocą miary DAX z funkcją REMOVWFILTERS. Dzięki temu na wykresie znajdują się zarówno 
-linia stała jak i dynamiczna.
+### Zakładki Podsumowanie i rekomendacje
+System zakładek pozwala na szybkie przełączanie się między automatycznym podsumowaniem danych a wnioskami biznesowymi.
 
-### c) Wykres lejkowy
+#### Podsumowanie
+Pole tekstowe generujące dynamiczny opis dostosowany do wybranego filtra. Zawiera informacje o wielkości grupy początkowej, wygenerowanym przychodzie oraz liczbie klientów pozostających w usłudze do dnia 31.03.2026.
 
-Jako że interpretacja zmian w wybranej kohorcie na wykresie liniowym może być trudna przy niskich wartościach i nie zmieniającej się osi, dodany został wykres lejkowy który pozwala na dokładną 
-analizę grupy nawet przy niskich wartościach.
+#### Rekomendacje
+Zawierają konkretne propozycje działań naprawczych i optymalizacyjnych:
+* **Przeciwdziałanie rezygnacji:** Ze względu na wysoki wskaźnik churn po pierwszym miesiącu, sugerowane jest wprowadzenie planów 3-miesięcznych z atrakcyjnym systemem rabatowym.
+* **Aktywacja powracających:** Rekomendowane jest oferowanie zniżek motywacyjnych w zamian za wypełnienie formularza zwrotnego, co pozwoli na zebranie danych o przyczynach rezygnacji.
 
-### d) Zakładki Podsumowanie i rekomendacje
+### Dokumentacja wizualna - Retencja
+| Bez aktywnego filtra | Aktywny filtr | Zakładka rekomendacje |
+| :--- | :--- | :--- |
+| <img width="958" alt="Strona 1-1" src="https://github.com/user-attachments/assets/39f7121f-8936-4435-8dfd-12a612be43d2" /> | <img width="962" alt="Strona 1-2" src="https://github.com/user-attachments/assets/8009e3ca-86e7-4a79-bada-3a18d7f2e366" /> | <img width="957" alt="Strona 1-3" src="https://github.com/user-attachments/assets/1cf9ee2b-31e7-4d17-8ff7-74684cb681d4" /> |
 
-Oddzielają one dwa pola tekstowe zawierające podsumowanie informacji na dashboardzie oraz rekomendacje dla odbiorcy.
+## Przegląd ogólny klientów
+Sekcja dedykowana całościowej analizie sprzedaży w Kajo Data Space.
 
-#### d1) Podsumowanie  
+### Tabela zbiorcza
+Prezentuje łączny przychód oraz liczbę nowych klientów w ujęciu rocznym i kwartalnym, wraz ze wskaźnikiem wzrostu procentowego rok do roku (YoY%).
 
-Pole tekstowe które zawiera dynamiczny tekst który dostosowywuje się do wartości filtra. Możemy tam znaleźć informację o wybranej grupie, jej stanie początkowym, przychodzie wygenerowanym przezcałą tą grupę liczbie pozostałych klientów, oraz liczbie klientów będących od momentu dołączenia (wybrany filtr) do dnia dzisiejszego - 31.03.2026
+### Wykres kolumnowy
+Przedstawia segmentację klientów na podstawie wpłaconych kwot (przedziały co 500 PLN). Etykiety wskazują liczebność użytkowników w każdym segmencie.
 
-#### d2) Rekomendacje 
+### Wnioski biznesowe
+* **Dynamika rozwoju:** Stały wzrost przychodów potwierdza skuteczność działań marketingowych i wysoką jakość oferowanych usług.
+* **Struktura bazy:** Główny udział w przychodach mają nowi klienci o krótkim cyklu życia w usłudze. Priorytetem strategicznym powinno być wdrożenie mechanizmów retencyjnych w celu stabilizacji bazy stałych użytkowników.
 
-To pole zawiera rekomendacje dla odbiorcy - jeden z wymogów konkursowych.Oto pełna treść rekomendacji:
+### Dokumentacja wizualna - Przegląd ogólny
+| Podsumowanie ogólne | Rekomendacje ogólne |
+| :--- | :--- |
+| <img width="956" alt="Strona 2-1" src="https://github.com/user-attachments/assets/1cf9ee2b-31e7-4d17-8ff7-74684cb681d4" /> | <img width="962" alt="Strona 2-2" src="https://github.com/user-attachments/assets/b3626f6e-3250-42a4-b49e-4ba69db7a937" /> |
 
-* **Ucieczka po miesiącu:** Analiza kohortowa wskazuje, że większość nowych klientów rezygnuje już po pierwszym miesiącu.
-Zaleca się wprowadzenie atrakcyjnych planów 3-miesięcznych, oferujących wyższy rabat niż plan miesięczny. Pozwoli to klientom na
-dłuższą perspektywę zapoznania się z treściami, przy jednoczesnym uniknięciu bariery wysokiego kosztu planu rocznego.
-
-*  **Co zrobić z powracającymi klientami?**:  W celu aktywacji powracających użytkowników rekomendowane jest wprowadzenie zniżek motywacyjnych.
-Warunkiem otrzymania rabatu powinno być wypełnienie krótkiego formularza. Pozwoli to na zebranie cennych danych o przyczynach 
-wcześniejszych rezygnacji i pomoże w optymalizacji usługi w przyszłości.
-
-### Retencja w ujęciu kohortowym - Bez aktywnego filtra 
-
-<img width="958" height="537" alt="Strona 1-1" src="https://github.com/user-attachments/assets/39f7121f-8936-4435-8dfd-12a612be43d2" />
-
-### Retencja w ujęciu kohortowym - Aktywny flitr
-
-<img width="962" height="541" alt="Strona 1-2" src="https://github.com/user-attachments/assets/8009e3ca-86e7-4a79-bada-3a18d7f2e366" />
-
-### Retencja w ujęciu kohortowym - Zakładka rekomendacje
-
-<img width="957" height="536" alt="Strona 1-3" src="https://github.com/user-attachments/assets/108b273d-7f6a-4413-9eeb-5e286a794677" />
-
-
-## 3. Przegląd ogólny klientów 
-
-Ta strona składa się z czterech elementów i skupia się na analizie całości sprzedaży KajoDataSpace:
-
-### a) Tabela 
-
-W tabeli znajdziemy łączny przychód i liczbę nowych, unikalnych klientów w ujęciu rocznym i kwartalnym oraz wzrost procentowy w stosunku do tego samego okresu rok wcześniej YoY%
-
-### b) Wykres kolumnowy
-
-Zawiera on przedziały z w których umieszczani są klienci którzy wpłacili określoną kwatę. Kwoty są dzielone co 500 złotych a w etykietach na górze została umieszczona liczba klientów która mieści się w danym przedziale.
-
-### c) Zakładki Podsumowanie i rekomendacje
-
-Oddzielają one dwa pola tekstowe zawierające podsumowanie informacji na dashboardzie oraz rekomendacje dla odbiorcy.
-
-#### c1) Podsumowanie
-
-Znajduje się tu informacja o medianie i pierwszym kwartylu z łącznych wpłat klientów oraz podsumowanie najważniejzych osiągnięć.
-
-#### c2 Rekomendacje 
-
-To pole zawiera rekomendacje dla odbiorcy - jeden z wymogów konkursowych.Oto pełna treść rekomendacji:
-
-* **Dynamiczny rozwój i skuteczność marketingu:** Kajo Data Space odnotowuje stały wzrost, z kwartału na kwartał docierając do coraz szerszego grona odbiorców. Rosnące przychody świadczą o wysokiej jakości usług oraz skuteczności prowadzonych działań marketingowych i promocyjnych. Obecny model pozyskiwania klientów wykazuje bardzo wysoką efektywność.
-
-* **Najliczniejsza grupa to nowi klienci:** Analiza ogólna potwierdza wnioski z analizy kohortowej: największy udział w przychodach mają nowi klienci, którzy jednak szybko rezygnują z subskrypcji. Kluczowym priorytetem dla dalszego skalowania biznesu powinno być wdrożenie mechanizmów zatrzymujących użytkowników na dłużej, aby ustabilizować bazę stałych klientów.
-
-## Przegląd ogólny klientów - Padsumowanie 
-
-<img width="956" height="537" alt="Strona 2-1" src="https://github.com/user-attachments/assets/1cf9ee2b-31e7-4d17-8ff7-74684cb681d4" />
-
-## Przegląd ogólny klientów - Rekomendacje 
-
-<img width="962" height="542" alt="Strona 2-2" src="https://github.com/user-attachments/assets/b3626f6e-3250-42a4-b49e-4ba69db7a937" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
+**Autor:** [Dawid Gabryelski](https://github.com/DawidGabryelski)
